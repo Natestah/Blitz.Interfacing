@@ -14,28 +14,28 @@ public class SearchQuery : MessageWithIdentity
     public string TextBoxQuery { get; set; }
 
     [Key(nameof(FileNameQuery))] 
-    public string FileNameQuery { get; set; }
+    public string? FileNameQuery { get; set; }
 
     [Key(nameof(LiteralSearchQuery))] 
-    public string LiteralSearchQuery { get; set; }    
+    public string? LiteralSearchQuery { get; set; }    
     
     [Key(nameof(RegexSearchQuery))] 
-    public string RegexSearchQuery { get; set; }
+    public string? RegexSearchQuery { get; set; }
 
     [Key(nameof(ReplaceLiteralTextQuery))] 
-    public string ReplaceLiteralTextQuery { get; set; }
+    public string? ReplaceLiteralTextQuery { get; set; }
     
     [Key(nameof(ReplaceRegexTextQuery))] 
-    public string ReplaceRegexTextQuery { get; set; }
+    public string? ReplaceRegexTextQuery { get; set; }
     
     [Key(nameof(ReplaceTextQuery))] 
-    public string ReplaceTextQuery { get; set; }
+    public string? ReplaceTextQuery { get; set; }
     
     [Key(nameof(ReplaceTextWithQuery))] 
-    public string ReplaceTextWithQuery { get; set; }
+    public string? ReplaceTextWithQuery { get; set; }
     
     [Key(nameof(DebugFileNameQuery))] 
-    public string DebugFileNameQuery { get; set; }
+    public string? DebugFileNameQuery { get; set; }
     
     [Key(nameof(FileNameQueryEnabled))]
     public bool FileNameQueryEnabled { get; set; }
@@ -118,6 +118,15 @@ public class SearchQuery : MessageWithIdentity
     [DefaultValue(false)]
     public bool SmartCase;
     
+    [Key(nameof(FlatSearchFilesList))]
+    public List<string>? FlatSearchFilesList;
+
+    [Key( nameof(SolutionExports))]
+    public List<SolutionExport>? SolutionExports;
+    
+    [Key(nameof(SelectedProjectName))]
+    public string? SelectedProjectName { get; set; }
+    
     public SearchQuery(string textBoxQuery, List<SearchPath> filePaths, List<SearchExtension> priorityExtensions,
         bool useGitIgnore = true, bool enableSearchIndex = true, bool enableResultsRecycling = true, int searchThreads = 32)
     {
@@ -134,7 +143,7 @@ public class SearchQuery : MessageWithIdentity
 
     [IgnoreMember] private string? _rawExtension;
 
-    private static readonly char[] _spacechars = new[] { ' ', '\t' };
+    private static readonly char[] Spacechars = new[] { ' ', '\t' };
 
     [IgnoreMember]
     public string RawExtensionList
@@ -150,7 +159,10 @@ public class SearchQuery : MessageWithIdentity
             for (int i = 0; i < PriorityExtensions.Count; i++)
             {
                 var extension = PriorityExtensions[i];
-                builder.Append(extension.Extension.TrimStart('.'));
+                if (extension.Extension != null)
+                {
+                    builder.Append(extension.Extension.TrimStart('.'));
+                }
                 if (i < PriorityExtensions.Count - 1)
                 {
                     builder.Append(' ');
@@ -166,7 +178,7 @@ public class SearchQuery : MessageWithIdentity
 
             if (_rawExtension != null)
             {
-                string[] split = _rawExtension.Split(_spacechars, StringSplitOptions.RemoveEmptyEntries);
+                string[] split = _rawExtension.Split(Spacechars, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var extension in split)
                 {
                     var add = $".{extension.ToLower().TrimStart('.')}";

@@ -5,7 +5,7 @@ using MessagePack;
 public class RobotFileDetails
 {
     [Key(nameof(FileName))]
-    public string FileName { get; set; }
+    public string? FileName { get; set; }
     
     [Key(nameof(FileSize))]
     public long FileSize { get; set; }

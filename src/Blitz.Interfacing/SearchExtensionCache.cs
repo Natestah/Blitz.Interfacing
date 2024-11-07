@@ -27,10 +27,10 @@ public class FilesByExtension //: ConcurrentDictionary<string, SearchFileInforma
     [IgnoreMember]
     public IEnumerable<string> Keys => FileInformations.Keys;
 
-    public bool TryGetValue(string key, out SearchFileInformation fileInformation) =>
+    public bool TryGetValue(string key, out SearchFileInformation? fileInformation) =>
         FileInformations.TryGetValue(key, out fileInformation);
 
-    public bool TryRemove(string key, out SearchFileInformation fileInformation) =>
+    public bool TryRemove(string key, out SearchFileInformation? fileInformation) =>
         FileInformations.TryGetValue(key, out fileInformation);
 
     public void Clear() => FileInformations.Clear();
@@ -245,7 +245,7 @@ public class SearchExtensionCache : ConcurrentDictionary<string, FilesByExtensio
 
             }
         }
-        catch (TaskCanceledException ex)
+        catch (TaskCanceledException)
         {
             TryRemove(extension, out _);
         }

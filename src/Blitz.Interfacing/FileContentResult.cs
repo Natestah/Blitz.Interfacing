@@ -18,7 +18,7 @@ public class FileContentResult
     public bool Replacing { get; set; }
 
     [Key(nameof(BlitzMatches))] 
-    public List<BlitzMatch> BlitzMatches { get; set; }
+    public List<BlitzMatch>? BlitzMatches { get; set; }
 
     [Key(nameof(LineNumber))] 
     public int LineNumber { get; set; }

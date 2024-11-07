@@ -12,7 +12,7 @@ public class BlitzMatch
     public int MatchLength;
 
     [Key(nameof(Replacement))] 
-    public string Replacement;
+    public string? Replacement;
 
     [Key(nameof(IsRegexSubgroup))] 
     public bool IsRegexSubgroup;

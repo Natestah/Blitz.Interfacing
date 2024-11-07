@@ -15,8 +15,6 @@ public class BlitzOrQuery: IBlitzMatchingQuery
     
     public bool LineMatches(string lineText, bool caseSensitive, out List<BlitzMatch> matches)
     {
-        int matchStart = -1;
-        int matchEnd = -1;
         bool anyMatched = false;
         matches = null!;
         foreach (var subQuery in SubQueries)

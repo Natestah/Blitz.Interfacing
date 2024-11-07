@@ -5,5 +5,5 @@ using MessagePack;
 public class SearchExtension
 {
     [Key("Extension")]
-    public string Extension { get; set; }
+    public string? Extension { get; set; }
 }

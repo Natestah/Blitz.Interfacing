@@ -8,11 +8,11 @@ public class ExceptionResult
 {
     
     [Key(nameof(ExceptionMessage))]
-    public string ExceptionMessage { get; set; }
+    public string? ExceptionMessage { get; set; }
 
 
     [Key(nameof(ExceptionStack))] 
-    public string ExceptionStack { get; set; }
+    public string? ExceptionStack { get; set; }
 
 
     public static ExceptionResult CreateFromException(Exception ex)

@@ -56,20 +56,14 @@ public class BlitzAndQuery: IBlitzMatchingQuery
 
     public static bool QueryMatches(string querySection, out BlitzAndQuery andQuery)
     {
-        
         andQuery = new BlitzAndQuery() { SearchWord = querySection };
         if (querySection == null)
         {
             return false;
         }
         var subQueries = querySection.Split(WhiteSpaceChars, StringSplitOptions.RemoveEmptyEntries);
-
-
         foreach (var subQuery in subQueries)
         {
-            bool wholeWord = false;
-            bool caseSensitive = false;
-
             if (BlitzOrQuery.QueryMatches(subQuery, out BlitzOrQuery orQuery))
             {
                 andQuery.SubQueries.Add(orQuery);
@@ -80,10 +74,8 @@ public class BlitzAndQuery: IBlitzMatchingQuery
                 {
                     andQuery.SubQueries.Add(wordInQuery);
                 }
-                
             }
         }
-        
         return true;
     }
 
